@@ -1,5 +1,6 @@
 
-// paper.project.importSVG('luzeira.svg');
+paper.project.importSVG('luzeira.svg');
+paper.project.importSVG('radii.svg');
 
 // 0 = sun
 // 1 = moon
@@ -10,7 +11,12 @@
 // 6 = saturn
 
 
-var radius = [
+var planets = [
+  34, 77, 35, 65, 180, 93, 33
+];
+
+
+var radii = [
   [251, 122],
   [339, 165],
   [426, 207],
@@ -43,13 +49,19 @@ path.fillColor = '#007cff';
 
 var planet = new Symbol(path);
 
-planet.place(new Point(400, 200));
+
+for (var i = 0; i < planets.length; i++) {
+
+  var delta_x = paper.view.viewSize.width / 2;
+  var delta_y = paper.view.viewSize.height / 2;
+
+  var p = planet_position(planets[i], radii[i]);
+  console.log(p);
+  planet.place(new Point(p.x + delta_x, p.y + delta_y));
+}
 
 
-console.log(planet_position(45, radius[6]));
 
-
-
-// project.importSVG('astrologia.svg');
+project.importSVG('astrologia.svg');
 
 
