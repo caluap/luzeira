@@ -109,24 +109,30 @@ var radii = [
   [777, 378],
 ];
 
+// some constants
 var LUZEIRA_BLUE = '#007cff',
-    PLANET_WIDTH = 10,
+    PLANET_WIDTH = 9,
     ASPECT_STROKE = PLANET_WIDTH/3;
 
-paper.project.importSVG('luzeira.svg');
-// paper.project.importSVG('radii.svg');
-
-var path = new Path.Circle(new Point(), PLANET_WIDTH);
-path.fillColor = LUZEIRA_BLUE;
-
-var planet = new Symbol(path);
-
+var positions = [];
 
 var delta_x = paper.view.viewSize.width / 2;
 var delta_y = paper.view.viewSize.height / 2;
 
-var positions = [];
+var type_layer = new Layer();
 
+// paper.project.importSVG('radii.svg');
+type_layer.importSVG('luzeira.svg');
+type_layer.importSVG('astrologia.svg');
+
+
+
+// Plots the 7 planets
+var planets_layer = new Layer();
+
+var path = new Path.Circle(new Point(), PLANET_WIDTH);
+path.fillColor = LUZEIRA_BLUE;
+var planet = new Symbol(path);
 
 for (var i = 0; i < planets.length; i++) {
 
@@ -136,8 +142,12 @@ for (var i = 0; i < planets.length; i++) {
   planet.place(new Point(p.x + delta_x, p.y + delta_y));
 }
 
+
+// Plots the aspects
+
+var aspects_layer = new Layer();
+
 var lines = aspects(planets, positions);
-// console.log(lines);
 for (var i = 0; i < lines.length; i++) {
 
   var myPath = new Path();
@@ -147,8 +157,8 @@ for (var i = 0; i < lines.length; i++) {
   myPath.add(new Point(lines[i].end.x + delta_x, lines[i].end.y + delta_y));
 }
 
+aspects_layer.sendToBack();
 
-
-project.importSVG('astrologia.svg');
+console.log(project.layers);
 
 
