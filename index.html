@@ -2,6 +2,12 @@
 <html>
 <head>
 
+
+	<script 
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+
 	<script>
 		var planets = [];
 		var data_is_dirty = false;
@@ -48,11 +54,6 @@
 		}
  	</script>
 
-	<script 
-		src="https://code.jquery.com/jquery-3.3.1.min.js"
-		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-		crossorigin="anonymous"></script>
-
 	<script type="text/javascript" src="bower_components/paper/dist/paper-full.js"></script>
 	<script type="text/paperscript" src="script.js" canvas="myCanvas" async></script>
 </head>
@@ -79,6 +80,13 @@
 		<br><br>
 		<button onclick="download_svg()">Download SVG</button>
 	</div>
+
+	<script>
+		$(function(){
+			document.getElementById('date').valueAsDate = new Date();
+			retrieve_data($('#date').val());
+		})
+	</script>
 
 </body>
 </html>
