@@ -1,10 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+	<script>
+		var planets = [];
+		var data_is_dirty = false;
+		// var planets = [0, 30, 60, 90, 120, 150, 180];
+		function retrieve_data(date) {
+
+			if (!date) {
+				console.log('date is empty!');
+				return;
+			}
+
+			var year = date.slice(0,4);
+			var month = date.slice(5,7);
+			var day = date.slice(8);
+
+			if (parseInt(year) < 1900 || parseInt(year) > 2100) {
+				alert('Sinto, mas temos dados apenas entre os anos de 1900 e 2100!');
+				return;
+			}
+			
+			
+			$.getJSON( "clean_data/" + year + ".json", function( data ) {
+				console.log('Data retrieved for: ' + year + '/' + month + '/' + day);
+				var angles = [];
+				angles.push(data[month][day]['sun']);
+				angles.push(data[month][day]['moon']);
+				angles.push(data[month][day]['mercury']);
+				angles.push(data[month][day]['venus']);
+				angles.push(data[month][day]['mars']);
+				angles.push(data[month][day]['jupiter']);
+				angles.push(data[month][day]['saturn']);
+				planets = angles;
+				data_is_dirty = true;
+			});
+		}
+	</script>
+
+	<script 
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+
 	<script type="text/javascript" src="bower_components/paper/dist/paper-full.js"></script>
 	<script type="text/paperscript" src="script.js" canvas="myCanvas" async></script>
 </head>
 <body>
-	<canvas id="myCanvas" style="width: 800px; height: 400px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"></canvas>
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-width: 100vw;
+			min-height: 100vh;
+		}
+	</style>
+
+	<div id="c">
+		<input type="date" id="date" name="date" min="1900-01-01" max="2100-12-31">
+		<button onclick="retrieve_data($('#date').val());">Calcular!</button>
+		<br><br>
+	
+		
+		<canvas id="myCanvas" style="width: 800px; height: 400px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"></canvas>
+	</div>
+
 </body>
 </html>

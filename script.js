@@ -92,13 +92,6 @@ function planet_position(angle, radius) {
 // 5 = jupiter
 // 6 = saturn
 
-
-var planets = [];
-
-for (var i = 0; i < 7; i++) {
-  planets.push(Math.floor(Math.random() * 360));
-}
-
 var radii = [
   [251, 122],
   [339, 165],
@@ -119,46 +112,79 @@ var positions = [];
 var delta_x = paper.view.viewSize.width / 2;
 var delta_y = paper.view.viewSize.height / 2;
 
-var type_layer = new Layer();
-
-// paper.project.importSVG('radii.svg');
-type_layer.importSVG('luzeira.svg');
-type_layer.importSVG('astrologia.svg');
-
-
-
-// Plots the 7 planets
-var planets_layer = new Layer();
+var type_layer = new Layer(),
+    planets_layer = new Layer(),
+    aspects_layer = new Layer();
 
 var path = new Path.Circle(new Point(), PLANET_WIDTH);
-path.fillColor = LUZEIRA_BLUE;
-var planet = new Symbol(path);
+    path.fillColor = LUZEIRA_BLUE;
+    var planet = new Symbol(path);
+  
 
-for (var i = 0; i < planets.length; i++) {
 
-  var p = planet_position(planets[i], radii[i]);
-
-  positions.push(p);
-  planet.place(new Point(p.x + delta_x, p.y + delta_y));
+function plot_images() {
+  type_layer.activate();
+  // paper.project.importSVG('radii.svg');
+  type_layer.importSVG('luzeira.svg');
+  type_layer.importSVG('astrologia.svg');
 }
 
 
-// Plots the aspects
+function plot_planets() {
 
-var aspects_layer = new Layer();
+  console.log('Will no draw the planets...');
 
-var lines = aspects(planets, positions);
-for (var i = 0; i < lines.length; i++) {
+  planets_layer.removeChildren();
+  planets_layer.activate();
+  positions = [];
 
-  var myPath = new Path();
-  myPath.strokeColor = LUZEIRA_BLUE;
-  myPath.strokeWidth = ASPECT_STROKE;
-  myPath.add(new Point(lines[i].origin.x + delta_x, lines[i].origin.y + delta_y));
-  myPath.add(new Point(lines[i].end.x + delta_x, lines[i].end.y + delta_y));
+  if (planets.length == 0) {
+    for (var i = 0; i < 7; i++) {
+      planets.push(Math.floor(Math.random() * 360));
+    }
+  }
+
+  for (var i = 0; i < planets.length; i++) {
+  
+    var p = planet_position(planets[i], radii[i]);
+  
+    positions.push(p);
+    planet.place(new Point(p.x + delta_x, p.y + delta_y));
+  }
+
 }
 
-aspects_layer.sendToBack();
+function plot_aspects() {
 
-console.log(project.layers);
+  console.log('...and their aspects.');
+
+  if (positions.length == 0) {
+    plot_planets();
+  }
+
+  aspects_layer.removeChildren();
+  aspects_layer.activate();
+
+  var lines = aspects(planets, positions);
+  for (var i = 0; i < lines.length; i++) {
+    var myPath = new Path();
+    myPath.strokeColor = LUZEIRA_BLUE;
+    myPath.strokeWidth = ASPECT_STROKE;
+    myPath.add(new Point(lines[i].origin.x + delta_x, lines[i].origin.y + delta_y));
+    myPath.add(new Point(lines[i].end.x + delta_x, lines[i].end.y + delta_y));
+  }
+  aspects_layer.sendToBack();
+}
 
 
+plot_images();
+
+
+view.onFrame = function(event) {
+  if (data_is_dirty) {
+    data_is_dirty = false;
+    plot_planets();
+    plot_aspects();
+    planets = [];
+  }
+}
