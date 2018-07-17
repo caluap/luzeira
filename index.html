@@ -39,7 +39,7 @@
 
 
 		var planets = [];
-		var data_is_dirty = false;
+		var data_is_dirty = false, svgs_are_dirty = true;
 		// var planets = [0, 30, 60, 90, 120, 150, 180];
 		function retrieve_data(date) {
 
@@ -146,15 +146,15 @@
 		<br><br>
 		<div id="radio">
 			<label for="r1">
-				<input type="radio" name="color" id="r1" value="default" checked onclick="$('#myCanvas').attr('class','default'); used_version = 'default'; data_is_dirty = true;">
+				<input type="radio" name="color" id="r1" value="default" checked onclick="$('#myCanvas').attr('class','default'); used_version = 'default'; svgs_are_dirty = true;">
 				Default
 			</label>
 			<label for="r2">
-				<input type="radio" name="color" id="r2" value="black" onclick="$('#myCanvas').attr('class','black'); used_version = 'black'; data_is_dirty = true;">
+				<input type="radio" name="color" id="r2" value="black" onclick="$('#myCanvas').attr('class','black'); used_version = 'black'; svgs_are_dirty = true;">
 				Preto
 			</label>
 			<label for="r3">
-				<input type="radio" name="color" id="r3" value="white" onclick="$('#myCanvas').attr('class','white'); used_version = 'white'; data_is_dirty = true;">
+				<input type="radio" name="color" id="r3" value="white" onclick="$('#myCanvas').attr('class','white'); used_version = 'white'; svgs_are_dirty = true;">
 				Branco
 			</label>
 		</div>

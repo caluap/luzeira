@@ -118,6 +118,8 @@ function plot_images() {
   // paper.project.importSVG('radii.svg');
   type_layer.importSVG(versions[used_version].luzeira);
   type_layer.importSVG(versions[used_version].astrologia);
+  
+  svgs_are_dirty = false;
 }
 
 
@@ -172,10 +174,12 @@ function plot_aspects() {
 
 
 view.onFrame = function(event) {
-  if (data_is_dirty) {
+  if (data_is_dirty || svgs_are_dirty) {
     data_is_dirty = false;
-    plot_images();
     plot_planets();
     plot_aspects();
+  }
+  if (svgs_are_dirty) {
+    plot_images();
   }
 }
