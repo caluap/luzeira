@@ -115,10 +115,6 @@ var delta_y = paper.view.viewSize.height / 2;
 var type_layer = new Layer(),
     planets_layer = new Layer(),
     aspects_layer = new Layer();
-
-var path = new Path.Circle(new Point(), PLANET_WIDTH);
-    path.fillColor = LUZEIRA_BLUE;
-    var planet = new Symbol(path);
   
 
 
@@ -149,7 +145,10 @@ function plot_planets() {
     var p = planet_position(planets[i], radii[i]);
   
     positions.push(p);
-    planet.place(new Point(p.x + delta_x, p.y + delta_y));
+    
+    var adjusted_point = new Point(p.x + delta_x, p.y + delta_y)
+    var drawn_planet = new Path.Circle(adjusted_point, PLANET_WIDTH);
+    drawn_planet.fillColor = LUZEIRA_BLUE;
   }
 
 }
