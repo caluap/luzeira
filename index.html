@@ -2,6 +2,9 @@
 <html>
 <head>
 
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 	<script 
 		src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -103,7 +106,7 @@
 <body>
 	<style>
 		body {
-			padding: 0;
+			padding: 20px;
 			margin: 0;
 			display: flex;
 			align-items: center;
@@ -127,10 +130,30 @@
 
 		#radio {
 			display: flex;
+			flex-wrap: wrap;
 		}
 		#radio > * {
 			margin-right: 20px;
 		}
+
+		#canvas-container {
+			max-width: calc(100vw - 40px);
+			overflow: auto;
+		}
+
+		@media screen and (max-width: 992px) {
+			button, input, label {
+				font-size: 16px;
+			}
+			button {
+				background: white;
+			}
+
+			label {
+				margin-bottom: 10px;
+			}
+		}
+
 	</style>
 
 	<div id="c">
@@ -138,12 +161,15 @@
 		<button onclick="retrieve_data($('#date').val());">Calcular!</button>
 		<br><br>
 	
+		<div id="canvas-container">
+			<canvas id="myCanvas" class="default" style="width: 800px; height: 400px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"></canvas>
+		</div>
 		
-		<canvas id="myCanvas" class="default" style="width: 800px; height: 400px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"></canvas>
 		<br><br>
 		<button onclick="download_svg()">Download SVG</button>
 		<button onclick="download_png()">Download PNG</button>
 		<br><br>
+		<h3>Cor</h3>
 		<div id="radio">
 			<label for="r1">
 				<input type="radio" name="color" id="r1" value="default" checked onclick="$('#myCanvas').attr('class','default'); used_version = 'default'; svgs_are_dirty = true;">
@@ -159,21 +185,22 @@
 			</label>
 		</div>
 		<br><br>
+		<h3>Grossura da linha</h3>
 		<div id="radio">
 			<label for="w2">
-				<input type="radio" name="color" id="w2" value="2" onclick="ASPECT_STROKE = 2; data_is_dirty = true;">
+				<input type="radio" name="width" id="w2" value="2" onclick="ASPECT_STROKE = 2; data_is_dirty = true;">
 				2
 			</label>
 			<label for="w3">
-				<input type="radio" name="color" id="w3" value="3" checked onclick="ASPECT_STROKE = 3; data_is_dirty = true;">
+				<input type="radio" name="width" id="w3" value="3" checked onclick="ASPECT_STROKE = 3; data_is_dirty = true;">
 				3
 			</label>
 			<label for="w4">
-				<input type="radio" name="color" id="w4" value="4" onclick="ASPECT_STROKE = 4; data_is_dirty = true;">
+				<input type="radio" name="width" id="w4" value="4" onclick="ASPECT_STROKE = 4; data_is_dirty = true;">
 				4
 			</label>
 			<label for="w5">
-				<input type="radio" name="color" id="w5" value="5" onclick="ASPECT_STROKE = 5; data_is_dirty = true;">
+				<input type="radio" name="width" id="w5" value="5" onclick="ASPECT_STROKE = 5; data_is_dirty = true;">
 				5
 			</label>
 		</div>
