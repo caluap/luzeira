@@ -17,9 +17,8 @@ function aspects(angles, positions) {
       
       var delta = Math.abs(angles[who] - angles[with_who]);
       var line = null;
-      
+
       // console.log(angles[who] + ' - ' + angles[with_who] + ' = ' + delta);
-      
       // conjunction
       if (-m < delta && delta < m) {
         // console.log(who + '/' + with_who + ' — found a conjuction between ' + who + ' and ' + with_who);
@@ -101,10 +100,6 @@ var radii = [
   [689, 335],
   [777, 378],
 ];
-
-// some constants
-var PLANET_WIDTH = 9,
-    ASPECT_STROKE = PLANET_WIDTH/3;
 
 var positions = [];
 

@@ -2,3 +2,4 @@ bower_components
 .ipynb_checkpoints
 clean_data
 raw_data
+paper-full.js

@@ -33,6 +33,11 @@
 		var used_version = 'default';
 
 
+		// some constants
+		var PLANET_WIDTH = 9,
+				ASPECT_STROKE = 3;//PLANET_WIDTH/2;
+
+
 		var planets = [];
 		var data_is_dirty = false;
 		// var planets = [0, 30, 60, 90, 120, 150, 180];
@@ -55,14 +60,15 @@
 			
 			$.getJSON( "clean_data/" + year + ".json", function( data ) {
 				console.log('Data retrieved for: ' + year + '/' + month + '/' + day);
+				var sign_adjustment = 180;
 				var angles = [];
-				angles.push(data[month][day]['sun']);
-				angles.push(data[month][day]['moon']);
-				angles.push(data[month][day]['mercury']);
-				angles.push(data[month][day]['venus']);
-				angles.push(data[month][day]['mars']);
-				angles.push(data[month][day]['jupiter']);
-				angles.push(data[month][day]['saturn']);
+				angles.push(data[month][day]['sun'] + sign_adjustment);
+				angles.push(data[month][day]['moon'] + sign_adjustment);
+				angles.push(data[month][day]['mercury'] + sign_adjustment);
+				angles.push(data[month][day]['venus'] + sign_adjustment);
+				angles.push(data[month][day]['mars'] + sign_adjustment);
+				angles.push(data[month][day]['jupiter'] + sign_adjustment);
+				angles.push(data[month][day]['saturn'] + sign_adjustment);
 				planets = angles;
 				data_is_dirty = true;
 			});
@@ -91,7 +97,7 @@
 
  	</script>
 
-	<script type="text/javascript" src="bower_components/paper/dist/paper-full.js"></script>
+	<script type="text/javascript" src="paper-full.js"></script>
 	<script type="text/paperscript" src="script.js" canvas="myCanvas" async></script>
 </head>
 <body>
@@ -150,6 +156,25 @@
 			<label for="r3">
 				<input type="radio" name="color" id="r3" value="white" onclick="$('#myCanvas').attr('class','white'); used_version = 'white'; data_is_dirty = true;">
 				Branco
+			</label>
+		</div>
+		<br><br>
+		<div id="radio">
+			<label for="w2">
+				<input type="radio" name="color" id="w2" value="2" onclick="ASPECT_STROKE = 2; data_is_dirty = true;">
+				2
+			</label>
+			<label for="w3">
+				<input type="radio" name="color" id="w3" value="3" checked onclick="ASPECT_STROKE = 3; data_is_dirty = true;">
+				3
+			</label>
+			<label for="w4">
+				<input type="radio" name="color" id="w4" value="4" onclick="ASPECT_STROKE = 4; data_is_dirty = true;">
+				4
+			</label>
+			<label for="w5">
+				<input type="radio" name="color" id="w5" value="5" onclick="ASPECT_STROKE = 5; data_is_dirty = true;">
+				5
 			</label>
 		</div>
 	</div>
