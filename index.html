@@ -11,6 +11,28 @@
 	<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
 
 	<script>
+
+		var versions = {
+			'default': {
+				'color': '#007cff',
+				'luzeira': 'luzeira.svg',
+				'astrologia': 'astrologia.svg'
+			},
+			'black': {
+				'color': '#a7a9ac',
+				'luzeira': 'luzeira_b_and_w.svg',
+				'astrologia': 'astrologia_b_and_w.svg'
+			},
+			'white': {
+				'color': '#a7a9ac',
+				'luzeira': 'luzeira_inv_b_and_w.svg',
+				'astrologia': 'astrologia_inv_b_and_w.svg'
+			}
+		}
+
+		var used_version = 'default';
+
+
 		var planets = [];
 		var data_is_dirty = false;
 		// var planets = [0, 30, 60, 90, 120, 150, 180];
@@ -51,7 +73,7 @@
 		}
 
 		function download_svg() {
-			var file_name = "logo_luzeira-" + return_date() + ".svg"
+			var file_name = "logo_luzeira-" + return_date() + '-' + used_version + ".svg";
 			var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
 			var link = document.createElement("a");
 			link.download = file_name;
@@ -60,7 +82,7 @@
 		}
 
 		function download_png() {
-			var file_name = "logo_luzeira-" + return_date() + ".png"
+			var file_name = "logo_luzeira-" + return_date() + '-' + used_version + ".png";
 			var canvas = document.getElementById("myCanvas"), ctx = canvas.getContext("2d");
 			canvas.toBlob(function(blob) {
 				saveAs(blob, file_name);
@@ -83,6 +105,13 @@
 			min-width: 100vw;
 			min-height: 100vh;
 		}
+
+		#radio {
+			display: flex;
+		}
+		#radio > * {
+			margin-right: 20px;
+		}
 	</style>
 
 	<div id="c">
@@ -95,8 +124,23 @@
 		<br><br>
 		<button onclick="download_svg()">Download SVG</button>
 		<button onclick="download_png()">Download PNG</button>
+		<br><br>
+		<div id="radio">
+			<label for="r1">
+				<input type="radio" name="color" id="r1" value="default" checked onclick="used_version = 'default'; data_is_dirty = true;">
+				Default
+			</label>
+			<label for="r2">
+				<input type="radio" name="color" id="r2" value="black" onclick="used_version = 'black'; data_is_dirty = true;">
+				Preto
+			</label>
+			<label for="r3">
+				<input type="radio" name="color" id="r3" value="white" onclick="used_version = 'white'; data_is_dirty = true;">
+				Branco
+			</label>
+		</div>
 	</div>
-
+	
 	<script>
 		$(function(){
 			document.getElementById('date').valueAsDate = new Date();

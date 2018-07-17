@@ -103,8 +103,7 @@ var radii = [
 ];
 
 // some constants
-var LUZEIRA_BLUE = '#007cff',
-    PLANET_WIDTH = 9,
+var PLANET_WIDTH = 9,
     ASPECT_STROKE = PLANET_WIDTH/3;
 
 var positions = [];
@@ -119,10 +118,11 @@ var type_layer = new Layer(),
 
 
 function plot_images() {
+  type_layer.removeChildren();
   type_layer.activate();
   // paper.project.importSVG('radii.svg');
-  type_layer.importSVG('luzeira.svg');
-  type_layer.importSVG('astrologia.svg');
+  type_layer.importSVG(versions[used_version].luzeira);
+  type_layer.importSVG(versions[used_version].astrologia);
 }
 
 
@@ -148,7 +148,7 @@ function plot_planets() {
     
     var adjusted_point = new Point(p.x + delta_x, p.y + delta_y)
     var drawn_planet = new Path.Circle(adjusted_point, PLANET_WIDTH);
-    drawn_planet.fillColor = LUZEIRA_BLUE;
+    drawn_planet.fillColor = versions[used_version].color;
   }
 
 }
@@ -167,7 +167,7 @@ function plot_aspects() {
   var lines = aspects(planets, positions);
   for (var i = 0; i < lines.length; i++) {
     var myPath = new Path();
-    myPath.strokeColor = LUZEIRA_BLUE;
+    myPath.strokeColor = versions[used_version].color;
     myPath.strokeWidth = ASPECT_STROKE;
     myPath.add(new Point(lines[i].origin.x + delta_x, lines[i].origin.y + delta_y));
     myPath.add(new Point(lines[i].end.x + delta_x, lines[i].end.y + delta_y));
@@ -176,14 +176,11 @@ function plot_aspects() {
 }
 
 
-plot_images();
-
-
 view.onFrame = function(event) {
   if (data_is_dirty) {
     data_is_dirty = false;
+    plot_images();
     plot_planets();
     plot_aspects();
-    planets = [];
   }
 }
