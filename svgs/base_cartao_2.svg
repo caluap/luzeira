@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="287px" height="197px" viewBox="0 0 287 197" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="49.9650892%" y1="0.0301448048%" x2="49.9650892%" y2="100.030145%" id="linearGradient-1">
+            <stop stop-color="#002D58" offset="0%"></stop>
+            <stop stop-color="#0F518C" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="base_cartao" transform="translate(1.000000, 1.000000)">
+            <rect id="Degradê" fill="url(#linearGradient-1)" fill-rule="nonzero" x="12.496" y="12.496" width="259.654" height="170.022"></rect>
+            <g id="Marcas_de_corte">
+                <path d="M263.646,180.014 L263.646,195.014" id="Shape" stroke="#FFFFFF" stroke-width="1.25"></path>
+                <path d="M263.646,15 L263.646,0" id="Shape" stroke="#FFFFFF" stroke-width="1.25"></path>
+                <path d="M21,180.014 L21,195.014" id="Shape" stroke="#FFFFFF" stroke-width="1.25"></path>
+                <path d="M21,15 L21,0" id="Shape" stroke="#FFFFFF" stroke-width="1.25"></path>
+                <path d="M269.646,174.014 L284.646,174.014" id="Shape" stroke="#FFFFFF" stroke-width="1.25"></path>
+                <path d="M15,174.014 L0,174.014" id="Shape" stroke="#FFFFFF" stroke-width="1.25"></path>
+                <path d="M269.646,21 L284.646,21" id="Shape" stroke="#FFFFFF" stroke-width="1.25"></path>
+                <path d="M15,21 L0,21" id="Shape" stroke="#FFFFFF" stroke-width="1.25"></path>
+                <path d="M263.646,180.014 L263.646,195.014" id="Shape" stroke="#000000" stroke-width="0.25"></path>
+                <path d="M263.646,15 L263.646,0" id="Shape" stroke="#000000" stroke-width="0.25"></path>
+                <path d="M21,180.014 L21,195.014" id="Shape" stroke="#000000" stroke-width="0.25"></path>
+                <path d="M21,15 L21,0" id="Shape" stroke="#000000" stroke-width="0.25"></path>
+                <path d="M269.646,174.014 L284.646,174.014" id="Shape" stroke="#000000" stroke-width="0.25"></path>
+                <path d="M15,174.014 L0,174.014" id="Shape" stroke="#000000" stroke-width="0.25"></path>
+                <path d="M269.646,21 L284.646,21" id="Shape" stroke="#000000" stroke-width="0.25"></path>
+                <path d="M15,21 L0,21" id="Shape" stroke="#000000" stroke-width="0.25"></path>
+            </g>
+        </g>
+    </g>
+</svg>
