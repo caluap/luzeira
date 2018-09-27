@@ -100,16 +100,13 @@ var positions = [];
 var delta_x = paper.view.viewSize.width / 2;
 var delta_y = paper.view.viewSize.height / 2;
 
-var planets_layer = new Layer(),
-    aspects_layer = new Layer();
+var astro_layer = new Layer();
   
 
 function plot_planets() {
 
   console.log('Will now draw the planets...');
 
-  planets_layer.removeChildren();
-  planets_layer.activate();
   positions = [];
 
   if (planets.length == 0) {
@@ -129,18 +126,21 @@ function plot_planets() {
     drawn_planet.fillColor = '#007cff';
   }
 
+
 }
 
 function plot_aspects() {
 
   console.log('...and their aspects.');
 
+  astro_layer.removeChildren();
+  astro_layer.activate();
+
+  var mask = new Path.Rectangle(13,13,260,170);
+
   if (positions.length == 0) {
     plot_planets();
   }
-
-  aspects_layer.removeChildren();
-  aspects_layer.activate();
 
   var lines = aspects(planets, positions);
   for (var i = 0; i < lines.length; i++) {
@@ -150,7 +150,10 @@ function plot_aspects() {
     myPath.add(new Point(lines[i].origin.x + delta_x, lines[i].origin.y + delta_y));
     myPath.add(new Point(lines[i].end.x + delta_x, lines[i].end.y + delta_y));
   }
-  aspects_layer.bringToFront();
+
+  astro_layer.clipped = true;
+
+  astro_layer.bringToFront();
 }
 
 
@@ -189,7 +192,6 @@ view.onFrame = function(event) {
     plot_images_l1();
 
     plot_aspects();
-    plot_planets();
 
     plot_images_l2();
   
