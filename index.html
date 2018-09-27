@@ -38,7 +38,7 @@
 
 		// some constants
 		var PLANET_WIDTH = 9,
-				ASPECT_STROKE = 3;//PLANET_WIDTH/2;
+				ASPECT_STROKE = 5;//PLANET_WIDTH/2;
 
 
 		var planets = [];
@@ -182,26 +182,6 @@
 			<label for="r3">
 				<input type="radio" name="color" id="r3" value="white" onclick="$('#myCanvas').attr('class','white'); used_version = 'white'; svgs_are_dirty = true;">
 				Branco
-			</label>
-		</div>
-		<br><br>
-		<h3>Grossura da linha</h3>
-		<div id="radio">
-			<label for="w2">
-				<input type="radio" name="width" id="w2" value="2" onclick="ASPECT_STROKE = 2; data_is_dirty = true;">
-				2
-			</label>
-			<label for="w3">
-				<input type="radio" name="width" id="w3" value="3" checked onclick="ASPECT_STROKE = 3; data_is_dirty = true;">
-				3
-			</label>
-			<label for="w4">
-				<input type="radio" name="width" id="w4" value="4" onclick="ASPECT_STROKE = 4; data_is_dirty = true;">
-				4
-			</label>
-			<label for="w5">
-				<input type="radio" name="width" id="w5" value="5" onclick="ASPECT_STROKE = 5; data_is_dirty = true;">
-				5
 			</label>
 		</div>
 	</div>
