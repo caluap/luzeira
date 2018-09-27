@@ -38,12 +38,11 @@
 
 		// some constants
 		var PLANET_WIDTH = 9,
-				ASPECT_STROKE = 5;//PLANET_WIDTH/2;
+				ASPECT_STROKE = PLANET_WIDTH/2;
 
 
 		var planets = [];
 		var data_is_dirty = false, svgs_are_dirty = true;
-		// var planets = [0, 30, 60, 90, 120, 150, 180];
 		function retrieve_data(date) {
 
 			if (!date) {

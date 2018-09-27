@@ -7,61 +7,54 @@ Math.radians = function(degrees) {
 // aspects:
 // conjunction (0), **NOT INCLUDED** sextile (60), square (90), trine (120), opposition (180)
 function aspects(angles, positions) {
-  // console.log(positions);
   var m = 7.5; // margin for aspects
   var lines = [];
 
   for (var who = 0; who < angles.length; who++) {
     // checks each planet with subsequent planets 
-    for (var with_who = who + 1; with_who < angles.length; with_who++) {
+    for (var with_whom = who + 1; with_whom < angles.length; with_whom++) {
       
-      var delta = Math.abs(angles[who] - angles[with_who]);
+      var delta = Math.abs(angles[who] - angles[with_whom]);
       var line = null;
 
-      // console.log(angles[who] + ' - ' + angles[with_who] + ' = ' + delta);
       // conjunction
       if (-m < delta && delta < m) {
-        // console.log(who + '/' + with_who + ' — found a conjuction between ' + who + ' and ' + with_who);
         line = {
           'origin': positions[who],
-          'end': positions[with_who],
+          'end': positions[with_whom],
           'type': 'conjunction'
         };
       }
 
       // square
       if ((90-m < delta && delta < 90+m) || (270-m < delta && delta < 270+m)) {
-        // console.log(who + '/' + with_who + ' — found a square between ' + who + ' and ' + with_who);
         line = {
           'origin': positions[who],
-          'end': positions[with_who],
+          'end': positions[with_whom],
           'type': 'square'
         };
       }
 
       // trine
       if ((120-m < delta && delta < 120+m) || (240-m < delta && delta < 240+m)) {
-        // console.log(who + '/' + with_who + ' — found a trine between ' + who + ' and ' + with_who);
         line = {
           'origin': positions[who],
-          'end': positions[with_who],
+          'end': positions[with_whom],
           'type': 'trine'
         };
       }
 
       // opposition
       if (180-m < delta && delta < 180+m) {
-        // console.log(who + '/' + with_who + ' — found a opposition between ' + who + ' and ' + with_who);
         line = {
           'origin': positions[who],
-          'end': positions[with_who],
+          'end': positions[with_whom],
           'type': 'opposition'
         };
       }
 
       if (line) {
         lines.push(line);
-        // console.log(line);
       }
 
     }
@@ -125,7 +118,7 @@ function plot_images() {
 
 function plot_planets() {
 
-  console.log('Will no draw the planets...');
+  console.log('Will now draw the planets...');
 
   planets_layer.removeChildren();
   planets_layer.activate();
