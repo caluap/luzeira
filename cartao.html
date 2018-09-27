@@ -60,7 +60,7 @@
 		}
 
 		function download_svg() {
-			var file_name = "logo_luzeira-" + return_date() + '-' + used_version + ".svg";
+			var file_name = "cartao_frente-" + return_date() + ".svg";
 			var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
 			var link = document.createElement("a");
 			link.download = file_name;
@@ -69,7 +69,7 @@
 		}
 
 		function download_png() {
-			var file_name = "logo_luzeira-" + return_date() + '-' + used_version + ".png";
+			var file_name = "cartao_frente-" + return_date() + ".png";
 			var canvas = document.getElementById("myCanvas"), ctx = canvas.getContext("2d");
 			canvas.toBlob(function(blob) {
 				saveAs(blob, file_name);
@@ -147,7 +147,7 @@
 		
 		<br><br>
 		<button onclick="download_svg()">Download SVG</button>
-		<button onclick="download_png()">Download PNG</button>
+		<!-- <button onclick="download_png()">Download PNG</button> -->
 	</div>
 	
 	<script>
