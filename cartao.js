@@ -138,9 +138,7 @@ function plot_aspects() {
 
   var mask = new Path.Rectangle(13,13,260,170);
 
-  if (positions.length == 0) {
-    plot_planets();
-  }
+  plot_planets();
 
   var lines = aspects(planets, positions);
   for (var i = 0; i < lines.length; i++) {
@@ -161,9 +159,6 @@ function plot_aspects() {
 
 var base_layer = new Layer(),
     type_layer = new Layer();
-
-
-var svgs_are_dirty = true;
 
 
 function plot_images_l1() {
@@ -196,5 +191,13 @@ view.onFrame = function(event) {
     plot_images_l2();
   
     svgs_are_dirty = false;
+  }
+  if (recalculate_deltas) {
+    recalculate_deltas = false;
+    console.log(delta_x);
+    delta_x = Math.floor(Math.random() * paper.view.viewSize.width);
+    delta_y = Math.floor(Math.random() * paper.view.viewSize.height);
+    console.log(delta_x);
+    svgs_are_dirty = true;
   }
 }

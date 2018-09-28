@@ -24,7 +24,7 @@
 
 
 		var planets = [];
-		var data_is_dirty = false, svgs_are_dirty = true;
+		var data_is_dirty = false, svgs_are_dirty = true, recalculate_deltas = false;
 		function retrieve_data(date) {
 
 			if (!date) {
@@ -54,7 +54,7 @@
 				angles.push(data[month][day]['jupiter'] + sign_adjustment);
 				angles.push(data[month][day]['saturn'] + sign_adjustment);
 				planets = angles;
-				data_is_dirty = true;
+				svgs_are_dirty = true;
 			});
 		}
 
@@ -157,6 +157,7 @@
 	<div id="c">
 		<input type="date" id="date" name="date" min="1900-01-01" max="2100-12-31">
 		<button onclick="retrieve_data($('#date').val());">Calcular!</button>
+		<button onclick="recalculate_deltas = true;">🎲</button>
 		<br><br>
 	
 		<div id="canvas-container">
