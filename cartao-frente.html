@@ -13,9 +13,6 @@
 
 	<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
 	
-	<script src="jspdf.min.js"></script>
-	<script src="svg2pdf.min.js"></script>
-
 	<script>
 
 		// some constants
@@ -62,27 +59,13 @@
 			return $('#date').val();
 		}
 
-		function download_pdf() {
-			var file_name = "cartao_frente-" + return_date() + ".pdf";
-			var svg_s = paper.project.exportSVG({asString:true});
-			var cont = document.createElement("div");
-			$(cont).html(svg_s);
-
-			const svgElement = $(cont).children()[0];
-			const width = 284, height = 195;
-
-			// create a new jsPDF instance
-			const pdf = new jsPDF('l', 'pt', [width, height]);
-
-			// render the svg element
-			svg2pdf(svgElement, pdf, {
-				xOffset: 0,
-				yOffset: 0,
-				scale: 1
-			});
-
-			// or simply safe the created pdf
-			pdf.save(file_name);
+		function download_svg() {
+			var file_name = "cartao_frente-" + return_date() + ".svg";
+			var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
+			var link = document.createElement("a");
+			link.download = file_name;
+			link.href = url;
+			link.click();
 
 		}
 
@@ -115,7 +98,7 @@
 		</div>
 		
 		<br><br>
-		<button onclick="download_pdf()">Download PDF</button>
+		<button onclick="download_svg()">Download SVG</button>
 	</div>
 
 	<div class="other-pages">
