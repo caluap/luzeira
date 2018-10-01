@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="285px" height="196px" viewBox="0 0 285 196" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>cartao_verso_base</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="284.646" height="195.014"></rect>
+        <rect id="path-3" x="0" y="0" width="284.646" height="195.014"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="cartao_verso_base">
+            <rect id="Rectangle-path" fill="#002D58" fill-rule="nonzero" x="12.497" y="12.495" width="259.653" height="170.022"></rect>
+            <g id="Group">
+                <g id="Clipped">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="SVGID_1_"></g>
+                    <path d="M263.646,180.014 L263.646,195.014 M263.646,15 L263.646,0 M21,180.014 L21,195.014 M21,15 L21,0 M269.646,174.014 L284.646,174.014 M15,174.014 L0,174.014 M269.646,21 L284.646,21 M15,21 L0,21" id="Shape" stroke="#FFFFFF" stroke-width="1.25" mask="url(#mask-2)"></path>
+                </g>
+                <g id="Clipped">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="SVGID_1_"></g>
+                    <path d="M263.646,180.014 L263.646,195.014 M263.646,15 L263.646,0 M21,180.014 L21,195.014 M21,15 L21,0 M269.646,174.014 L284.646,174.014 M15,174.014 L0,174.014 M269.646,21 L284.646,21 M15,21 L0,21" id="Shape" stroke="#000000" stroke-width="0.25" mask="url(#mask-4)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

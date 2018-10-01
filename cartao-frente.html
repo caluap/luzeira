@@ -24,7 +24,7 @@
 
 
 		var planets = [];
-		var data_is_dirty = false, svgs_are_dirty = true, recalculate_deltas = false;
+		var data_is_dirty = false, svgs_are_dirty = true, __svgs_are_dirty = true, recalculate_deltas = false;
 		function retrieve_data(date) {
 
 			if (!date) {
@@ -88,7 +88,7 @@
 
 		function download_png() {
 			var file_name = "cartao_frente-" + return_date() + ".png";
-			var canvas = document.getElementById("myCanvas"), ctx = canvas.getContext("2d");
+			var canvas = document.getElementById("canvas-frente"), ctx = canvas.getContext("2d");
 			canvas.toBlob(function(blob) {
 				saveAs(blob, file_name);
 			});
@@ -97,7 +97,7 @@
  	</script>
 
 	<script type="text/javascript" src="paper-full.js"></script>
-	<script type="text/paperscript" src="cartao.js" canvas="myCanvas" async></script>
+	<script type="text/paperscript" src="cartao-frente.js" canvas="canvas-frente" async></script>
 
 	<link rel="stylesheet" href="style.css">
 
@@ -110,13 +110,12 @@
 		<button class="emoji" onclick="recalculate_deltas = true;">🎲</button>
 		<br><br>
 	
-		<div id="canvas-container">
-			<canvas id="myCanvas" class="default" style="width: 284px; height: 195px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"></canvas>
+		<div class="canvas-container" id="canvas-container">
+			<canvas id="canvas-frente" class="default-canvas" style="width: 284px; height: 195px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"></canvas>
 		</div>
 		
 		<br><br>
 		<button onclick="download_pdf()">Download PDF</button>
-		<!-- <button onclick="download_png()">Download PNG</button> -->
 	</div>
 	
 	<script>

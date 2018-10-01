@@ -11,7 +11,7 @@
 			box-sizing: border-box;
 		}
 		
-		#myCanvas.default, #myCanvas.black {
+		#myCanvas.default, #myCanvas.black, .default-canvas {
 			background: white;
 		}
 
@@ -31,7 +31,7 @@
 			margin-right: 20px;
 		}
 
-		#canvas-container {
+		#canvas-container, .canvas-container {
 			max-width: calc(100vw - 40px);
 			overflow: auto;
 		}

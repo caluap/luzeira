@@ -105,7 +105,7 @@ var astro_layer = new Layer();
 
 function plot_planets() {
 
-  console.log('Will now draw the planets...');
+  console.log('(Cartão 1) Will now draw the planets...');
 
   positions = [];
 
@@ -131,7 +131,7 @@ function plot_planets() {
 
 function plot_aspects() {
 
-  console.log('...and their aspects.');
+  console.log('(Cartão 1) ...and their aspects.');
 
   astro_layer.removeChildren();
   astro_layer.activate();
