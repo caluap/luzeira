@@ -99,65 +99,15 @@
 	<script type="text/javascript" src="paper-full.js"></script>
 	<script type="text/paperscript" src="cartao.js" canvas="myCanvas" async></script>
 
+	<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-	<style>
-		body {
-			padding: 20px;
-			margin: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			min-width: 100vw;
-			min-height: 100vh;
-			background: #ddd;
-			box-sizing: border-box;
-		}
-		
-		#myCanvas.default, #myCanvas.black {
-			background: white;
-		}
-
-		#myCanvas.white {
-			background: black;
-		}
-
-		* {
-			font-family: monospace;
-		}
-
-		#radio {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		#radio > * {
-			margin-right: 20px;
-		}
-
-		#canvas-container {
-			max-width: calc(100vw - 40px);
-			overflow: auto;
-		}
-
-		@media screen and (max-width: 992px) {
-			button, input, label {
-				font-size: 16px;
-			}
-			button {
-				background: white;
-			}
-
-			label {
-				margin-bottom: 10px;
-			}
-		}
-
-	</style>
 
 	<div id="c">
 		<input type="date" id="date" name="date" min="1900-01-01" max="2100-12-31">
-		<button onclick="retrieve_data($('#date').val());">🔭</button>
-		<button onclick="recalculate_deltas = true;">🎲</button>
+		<button class="emoji" onclick="retrieve_data($('#date').val());">🔭</button>
+		<button class="emoji" onclick="recalculate_deltas = true;">🎲</button>
 		<br><br>
 	
 		<div id="canvas-container">
