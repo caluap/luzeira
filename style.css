@@ -59,8 +59,8 @@
 
 .other-pages {
 	position: fixed;
-	bottom: 3px;
-	left: 3px;
+	bottom: 6px;
+	right: 6px;
 	display: flex;
 }
 
@@ -68,12 +68,16 @@
 	text-decoration: none;
 	text-transform: uppercase;
 	letter-spacing: 0.01em;
-	font-size: 12px;
+	font-size: 14px;
 	display: block;
 	margin-right: 13px;
 	color: black;
 }
 
-.other-pages a:hover {
+.other-pages a:hover:not(.not-a-link) {
 	text-decoration: underline;
+}
+
+.other-pages a.not-a-link {
+	opacity: 0.3;
 }
