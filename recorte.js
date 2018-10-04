@@ -175,8 +175,8 @@ view.onFrame = function(event) {
   if (recalculate_deltas) {
     recalculate_deltas = false;
     console.log(delta_x);
-    delta_x = Math.floor(Math.random() * paper.view.viewSize.width);
-    delta_y = Math.floor(Math.random() * paper.view.viewSize.height);
+    delta_x = Math.floor(Math.random() * paper.view.viewSize.width - paper.view.viewSize.width/2);
+    delta_y = Math.floor(Math.random() * paper.view.viewSize.height - paper.view.viewSize.height/2);
     console.log(delta_x);
     redraw = true;
   }
