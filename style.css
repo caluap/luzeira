@@ -11,11 +11,10 @@
 			box-sizing: border-box;
 		}
 		
-		#myCanvas.default, #myCanvas.black, .default-canvas {
+		#myCanvas.default, .default-canvas {
 			background: white;
 		}
-
-		#myCanvas.white {
+		#myCanvas.white, #myCanvas.black {
 			background: black;
 		}
 
