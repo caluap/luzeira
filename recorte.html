@@ -100,7 +100,7 @@
 		}
 
 		function download_svg() {
-			var file_name = "logo_luzeira-" + return_date() + '-' + used_version + ".svg";
+			var file_name = "recorte-" + return_date() + '-' + used_version + ".svg";
 			var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
 			var link = document.createElement("a");
 			link.download = file_name;
@@ -109,7 +109,7 @@
 		}
 
 		function download_png() {
-			var file_name = "logo_luzeira-" + return_date() + '-' + used_version + ".png";
+			var file_name = "recorte-" + return_date() + '-' + used_version + ".png";
 			var canvas = document.getElementById("myCanvas"), ctx = canvas.getContext("2d");
 			canvas.toBlob(function(blob) {
 				saveAs(blob, file_name);
