@@ -6,7 +6,16 @@ These *versions* of the logotype are based on the positions for each day of each
 
 We used data (the *ephemerides*) from 1900 to 2100 obtained from findyourfate.com. The JSON files used aren't included, but the Python scripts to obtain them are (as Jupyter Notebook files) are. Watch out for a missing data point for Uranus in 2071!
 
-![Logo for the 16th of April of 2019](https://github.com/caluap/luzeira/raw/master/logo_luzeira-2019-04-16-default.png)
+![Logo for 2019/04/16](https://github.com/caluap/luzeira/raw/master/logo_luzeira-2019-04-16-default.png)
+
+Logo for 2019/04/16
+
+
+![Images taken from the same day from 1984 to 1998.](https://github.com/caluap/luzeira/raw/master/1984%E2%80%941998.png)
+
+Images taken from the same day from 1984 to 1998.
+
+
 
 
 The code here is free to use and adapt, but Luzeira’s logo is not.
