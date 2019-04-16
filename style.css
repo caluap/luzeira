@@ -1,88 +1,91 @@
+body {
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  background: #ddd;
+  box-sizing: border-box;
+}
 
-		body {
-			padding: 20px;
-			margin: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			min-width: 100vw;
-			min-height: 100vh;
-			background: #ddd;
-			box-sizing: border-box;
-		}
-		
-		#myCanvas.default, .default-canvas, #myCanvas.black {
-			background: white;
-		}
-		#myCanvas.white {
-			background: black;
-		}
+#myCanvas.default,
+.default-canvas,
+#myCanvas.black {
+  background: white;
+}
+#myCanvas.white,
+#recorte #myCanvas.blue {
+  background: black;
+}
 
+#recorte #myCanvas.black {
+  background: white;
+}
 
-		#recorte #myCanvas.black {
-			background: black;
-		}
+* {
+  font-family: monospace;
+}
 
-		* {
-			font-family: monospace;
-		}
+#radio {
+  display: flex;
+  flex-wrap: wrap;
+}
+#radio > * {
+  margin-right: 20px;
+}
 
-		#radio {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		#radio > * {
-			margin-right: 20px;
-		}
+#canvas-container,
+.canvas-container {
+  max-width: calc(100vw - 40px);
+  overflow: auto;
+}
 
-		#canvas-container, .canvas-container {
-			max-width: calc(100vw - 40px);
-			overflow: auto;
-		}
+button.emoji {
+  font-size: 24px;
+  position: relative;
+  top: 3px;
+  background: transparent;
+  border: none;
+}
 
-		button.emoji {
-			font-size: 24px;
-			position: relative;
-			top: 3px;
-			background: transparent;
-			border: none;
-		}
+@media screen and (max-width: 992px) {
+  button,
+  input,
+  label {
+    font-size: 16px;
+  }
+  button {
+    background: white;
+  }
 
-		@media screen and (max-width: 992px) {
-			button, input, label {
-				font-size: 16px;
-			}
-			button {
-				background: white;
-			}
-
-			label {
-				margin-bottom: 10px;
-			}
-		}
-
+  label {
+    margin-bottom: 10px;
+  }
+}
 
 .other-pages {
-	position: fixed;
-	bottom: 6px;
-	right: 6px;
-	display: flex;
+  position: fixed;
+  bottom: 6px;
+  right: 6px;
+  display: flex;
 }
 
 .other-pages a {
-	text-decoration: none;
-	text-transform: uppercase;
-	letter-spacing: 0.01em;
-	font-size: 14px;
-	display: block;
-	margin-right: 13px;
-	color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: 14px;
+  display: block;
+  margin-right: 13px;
+  color: black;
 }
 
 .other-pages a:hover:not(.not-a-link) {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 .other-pages a.not-a-link {
-	opacity: 0.3;
+  opacity: 0.3;
 }

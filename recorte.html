@@ -1,175 +1,225 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
 
+    <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
 
-	<script 
-		src="https://code.jquery.com/jquery-3.3.1.min.js"
-		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-		crossorigin="anonymous"></script>
+    <script>
+      var versions = {
+        default: {
+          color: "#007cff",
+          luzeira: "svgs/luzeira.svg",
+          astrologia: "svgs/astrologia.svg"
+        },
+        black: {
+          color: "#000000",
+          luzeira: "svgs/luzeira_b_and_w.svg",
+          astrologia: "svgs/astrologia_b_and_w.svg"
+        },
+        blue: {
+          color: "#007cff",
+          luzeira: "svgs/luzeira_b_and_w.svg",
+          astrologia: "svgs/astrologia_b_and_w.svg"
+        },
+        white: {
+          color: "#ffffff",
+          luzeira: "svgs/luzeira_inv_b_and_w.svg",
+          astrologia: "svgs/astrologia_inv_b_and_w.svg"
+        }
+      };
 
-	<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+      var used_version = "default";
 
-	<script>
+      // some constants
 
-		var versions = {
-			'default': {
-				'color': '#007cff',
-				'luzeira': 'svgs/luzeira.svg',
-				'astrologia': 'svgs/astrologia.svg'
-			},
-			'black': {
-				'color': '#007cff',
-				'luzeira': 'svgs/luzeira_b_and_w.svg',
-				'astrologia': 'svgs/astrologia_b_and_w.svg'
-			},
-			'white': {
-				'color': '#ffffff',
-				'luzeira': 'svgs/luzeira_inv_b_and_w.svg',
-				'astrologia': 'svgs/astrologia_inv_b_and_w.svg'
-			}
-		}
+      var g_f = 2;
 
-		var used_version = 'default';
+      var redraw = false;
 
+      var PLANET_WIDTH = 9 * g_f,
+        ASPECT_STROKE = PLANET_WIDTH / 2;
 
-		// some constants
+      var planets = [];
+      var data_is_dirty = false;
+      var recalculate_deltas = false;
 
-		var g_f = 2;
+      function change_ratios() {
+        if (g_f == 2) {
+          g_f = 1;
+        } else {
+          g_f = 2;
+        }
+        (PLANET_WIDTH = 9 * g_f), (ASPECT_STROKE = PLANET_WIDTH / 2);
+        redraw = true;
+      }
 
-		var redraw = false;
+      function retrieve_data(date) {
+        if (!date) {
+          console.log("date is empty!");
+          return;
+        }
 
-		var PLANET_WIDTH = 9*g_f,
-				ASPECT_STROKE = PLANET_WIDTH/2;
+        var year = date.slice(0, 4);
+        var month = date.slice(5, 7);
+        var day = date.slice(8);
 
+        if (parseInt(year) < 1900 || parseInt(year) > 2100) {
+          alert("Sinto, mas temos dados apenas entre os anos de 1900 e 2100!");
+          return;
+        }
 
-		var planets = [];
-		var data_is_dirty = false;
-		var recalculate_deltas = false;
+        $.getJSON("clean_data/" + year + ".json", function(data) {
+          console.log("Data retrieved for: " + year + "/" + month + "/" + day);
+          var sign_adjustment = 180;
+          var angles = [];
+          angles.push(data[month][day]["sun"] + sign_adjustment);
+          angles.push(data[month][day]["moon"] + sign_adjustment);
+          angles.push(data[month][day]["mercury"] + sign_adjustment);
+          angles.push(data[month][day]["venus"] + sign_adjustment);
+          angles.push(data[month][day]["mars"] + sign_adjustment);
+          angles.push(data[month][day]["jupiter"] + sign_adjustment);
+          angles.push(data[month][day]["saturn"] + sign_adjustment);
+          planets = angles;
+          data_is_dirty = true;
+        });
+      }
 
-		function change_ratios(){
-			if (g_f == 2) {
-				g_f = 1;
-			} else {
-				g_f = 2;
-			}
-			PLANET_WIDTH = 9*g_f,
-			ASPECT_STROKE = PLANET_WIDTH/2;
-			redraw = true;
-		}
+      function return_date() {
+        return $("#date").val();
+      }
 
+      function download_svg() {
+        var file_name =
+          "recorte-" + return_date() + "-" + used_version + ".svg";
+        var url =
+          "data:image/svg+xml;utf8," +
+          encodeURIComponent(paper.project.exportSVG({ asString: true }));
+        var link = document.createElement("a");
+        link.download = file_name;
+        link.href = url;
+        link.click();
+      }
 
-		function retrieve_data(date) {
+      function download_png() {
+        var file_name =
+          "recorte-" + return_date() + "-" + used_version + ".png";
+        var canvas = document.getElementById("myCanvas"),
+          ctx = canvas.getContext("2d");
+        canvas.toBlob(function(blob) {
+          saveAs(blob, file_name);
+        });
+      }
+    </script>
 
-			if (!date) {
-				console.log('date is empty!');
-				return;
-			}
+    <script type="text/javascript" src="paper-full.js"></script>
+    <script
+      type="text/paperscript"
+      src="recorte.js"
+      canvas="myCanvas"
+      async
+    ></script>
 
-			var year = date.slice(0,4);
-			var month = date.slice(5,7);
-			var day = date.slice(8);
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body id="recorte">
+    <div id="c">
+      <input
+        type="date"
+        id="date"
+        name="date"
+        min="1900-01-01"
+        max="2100-12-31"
+      />
+      <button class="emoji" onclick="retrieve_data($('#date').val());">
+        🔭
+      </button>
+      <button
+        class="emoji"
+        onclick="recalculate_deltas = true; g_f = 1; change_ratios();"
+      >
+        🎲
+      </button>
+      <button class="emoji" onclick="change_ratios();">🔍</button>
+      <br /><br />
 
-			if (parseInt(year) < 1900 || parseInt(year) > 2100) {
-				alert('Sinto, mas temos dados apenas entre os anos de 1900 e 2100!');
-				return;
-			}
-			
-			
-			$.getJSON( "clean_data/" + year + ".json", function( data ) {
-				console.log('Data retrieved for: ' + year + '/' + month + '/' + day);
-				var sign_adjustment = 180;
-				var angles = [];
-				angles.push(data[month][day]['sun'] + sign_adjustment);
-				angles.push(data[month][day]['moon'] + sign_adjustment);
-				angles.push(data[month][day]['mercury'] + sign_adjustment);
-				angles.push(data[month][day]['venus'] + sign_adjustment);
-				angles.push(data[month][day]['mars'] + sign_adjustment);
-				angles.push(data[month][day]['jupiter'] + sign_adjustment);
-				angles.push(data[month][day]['saturn'] + sign_adjustment);
-				planets = angles;
-				data_is_dirty = true;
-			});
-		}
+      <div id="canvas-container">
+        <canvas
+          id="myCanvas"
+          class="default"
+          style="width: 800px; height: 400px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"
+        ></canvas>
+      </div>
 
-		function return_date() {
-			return $('#date').val();
-		}
+      <br /><br />
+      <button onclick="download_svg()">Download SVG</button>
+      <button onclick="download_png()">Download PNG</button>
+      <br /><br />
+      <h3>Cor</h3>
+      <div id="radio">
+        <label for="r1">
+          <input
+            type="radio"
+            name="color"
+            id="r1"
+            value="default"
+            checked
+            onclick="$('#myCanvas').attr('class','default'); used_version = 'default'; redraw = true;"
+          />
+          Azul sobre branco
+        </label>
+        <label for="r2">
+          <input
+            type="radio"
+            name="color"
+            id="r2"
+            value="black"
+            onclick="$('#myCanvas').attr('class','black'); used_version = 'black'; redraw = true;"
+          />
+          Preto sobre branco
+        </label>
+        <label for="r3">
+          <input
+            type="radio"
+            name="color"
+            id="r3"
+            value="blue"
+            onclick="$('#myCanvas').attr('class','blue'); used_version = 'blue'; redraw = true;"
+          />
+          Azul sobre preto
+        </label>
+        <label for="r4">
+          <input
+            type="radio"
+            name="color"
+            id="r4"
+            value="white"
+            onclick="$('#myCanvas').attr('class','white'); used_version = 'white'; redraw = true;"
+          />
+          Branco sobre preto
+        </label>
+      </div>
+    </div>
 
-		function download_svg() {
-			var file_name = "recorte-" + return_date() + '-' + used_version + ".svg";
-			var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
-			var link = document.createElement("a");
-			link.download = file_name;
-			link.href = url;
-			link.click();
-		}
+    <div class="other-pages">
+      <a href="index.html">logotipo</a>
+      <a href="cartao-frente.html">cartão-frente</a>
+      <a href="cartao-verso.html">cartão-verso</a>
+      <a class="not-a-link">recorte</a>
+    </div>
 
-		function download_png() {
-			var file_name = "recorte-" + return_date() + '-' + used_version + ".png";
-			var canvas = document.getElementById("myCanvas"), ctx = canvas.getContext("2d");
-			canvas.toBlob(function(blob) {
-				saveAs(blob, file_name);
-			});
-		}
-
- 	</script>
-
-	<script type="text/javascript" src="paper-full.js"></script>
-	<script type="text/paperscript" src="recorte.js" canvas="myCanvas" async></script>
-
-	<link rel="stylesheet" href="style.css">
-</head>
-<body id="recorte">
-
-	<div id="c">
-		<input type="date" id="date" name="date" min="1900-01-01" max="2100-12-31">
-		<button class="emoji" onclick="retrieve_data($('#date').val());">🔭</button>
-		<button class="emoji" onclick="recalculate_deltas = true; g_f = 1; change_ratios();">🎲</button>
-		<button class="emoji" onclick="change_ratios();">🔍</button>
-		<br><br>
-	
-		<div id="canvas-container">
-			<canvas id="myCanvas" class="default" style="width: 800px; height: 400px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"></canvas>
-		</div>
-		
-		<br><br>
-		<button onclick="download_svg()">Download SVG</button>
-		<button onclick="download_png()">Download PNG</button>
-		<br><br>
-		<h3>Cor</h3>
-		<div id="radio">
-			<label for="r1">
-				<input type="radio" name="color" id="r1" value="default" checked onclick="$('#myCanvas').attr('class','default'); used_version = 'default'; redraw = true;">
-				Default
-			</label>
-			<label for="r2">
-				<input type="radio" name="color" id="r2" value="black" onclick="$('#myCanvas').attr('class','black'); used_version = 'black'; redraw = true;">
-				Preto
-			</label>
-			<label for="r3">
-				<input type="radio" name="color" id="r3" value="white" onclick="$('#myCanvas').attr('class','white'); used_version = 'white'; redraw = true;">
-				Branco
-			</label>
-		</div>
-	</div>
-
-	<div class="other-pages">
-		<a href="index.html">logotipo</a>
-		<a href="cartao-frente.html">cartão-frente</a>
-		<a href="cartao-verso.html">cartão-verso</a>
-		<a class="not-a-link">recorte</a>
-	</div>
-	
-	<script>
-		$(function(){
-			document.getElementById('date').valueAsDate = new Date();
-			retrieve_data($('#date').val());
-		})
-	</script>
-
-</body>
+    <script>
+      $(function() {
+        document.getElementById("date").valueAsDate = new Date();
+        retrieve_data($("#date").val());
+      });
+    </script>
+  </body>
 </html>
