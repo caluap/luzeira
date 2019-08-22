@@ -1,119 +1,132 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
 
-	<script 
-		src="https://code.jquery.com/jquery-3.3.1.min.js"
-		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-		crossorigin="anonymous"></script>
+    <script>
+      // some constants
+      var PLANET_WIDTH = 9,
+        ASPECT_STROKE = PLANET_WIDTH / 2;
 
-	<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
-	
-	<script>
+      var planets = [];
+      var data_is_dirty = false,
+        svgs_are_dirty = true,
+        __svgs_are_dirty = true,
+        recalculate_deltas = false;
+      function retrieve_data(date) {
+        if (!date) {
+          console.log("date is empty!");
+          return;
+        }
 
-		// some constants
-		var PLANET_WIDTH = 9,
-				ASPECT_STROKE = PLANET_WIDTH/2;
+        var year = date.slice(0, 4);
+        var month = date.slice(5, 7);
+        var day = date.slice(8);
 
+        if (parseInt(year) < 1900 || parseInt(year) > 2100) {
+          alert("Sinto, mas temos dados apenas entre os anos de 1900 e 2100!");
+          return;
+        }
 
-		var planets = [];
-		var data_is_dirty = false, svgs_are_dirty = true, __svgs_are_dirty = true, recalculate_deltas = false;
-		function retrieve_data(date) {
+        $.getJSON("clean_data/" + year + ".json", function(data) {
+          console.log("Data retrieved for: " + year + "/" + month + "/" + day);
+          var sign_adjustment = 180;
+          var angles = [];
+          angles.push(data[month][day]["sun"] + sign_adjustment);
+          angles.push(data[month][day]["moon"] + sign_adjustment);
+          angles.push(data[month][day]["mercury"] + sign_adjustment);
+          angles.push(data[month][day]["venus"] + sign_adjustment);
+          angles.push(data[month][day]["mars"] + sign_adjustment);
+          angles.push(data[month][day]["jupiter"] + sign_adjustment);
+          angles.push(data[month][day]["saturn"] + sign_adjustment);
+          planets = angles;
+          svgs_are_dirty = true;
+        });
+      }
 
-			if (!date) {
-				console.log('date is empty!');
-				return;
-			}
+      function return_date() {
+        return $("#date").val();
+      }
 
-			var year = date.slice(0,4);
-			var month = date.slice(5,7);
-			var day = date.slice(8);
+      function download_svg() {
+        var file_name = "cartao_frente-" + return_date() + ".svg";
+        var url =
+          "data:image/svg+xml;utf8," +
+          encodeURIComponent(paper.project.exportSVG({ asString: true }));
+        var link = document.createElement("a");
+        link.download = file_name;
+        link.href = url;
+        link.click();
+      }
 
-			if (parseInt(year) < 1900 || parseInt(year) > 2100) {
-				alert('Sinto, mas temos dados apenas entre os anos de 1900 e 2100!');
-				return;
-			}
-			
-			
-			$.getJSON( "clean_data/" + year + ".json", function( data ) {
-				console.log('Data retrieved for: ' + year + '/' + month + '/' + day);
-				var sign_adjustment = 180;
-				var angles = [];
-				angles.push(data[month][day]['sun'] + sign_adjustment);
-				angles.push(data[month][day]['moon'] + sign_adjustment);
-				angles.push(data[month][day]['mercury'] + sign_adjustment);
-				angles.push(data[month][day]['venus'] + sign_adjustment);
-				angles.push(data[month][day]['mars'] + sign_adjustment);
-				angles.push(data[month][day]['jupiter'] + sign_adjustment);
-				angles.push(data[month][day]['saturn'] + sign_adjustment);
-				planets = angles;
-				svgs_are_dirty = true;
-			});
-		}
+      function download_png() {
+        var file_name = "cartao_frente-" + return_date() + ".png";
+        var canvas = document.getElementById("canvas-frente"),
+          ctx = canvas.getContext("2d");
+        canvas.toBlob(function(blob) {
+          saveAs(blob, file_name);
+        });
+      }
+    </script>
 
-		function return_date() {
-			return $('#date').val();
-		}
+    <script type="text/javascript" src="paper-full.js"></script>
+    <script
+      type="text/paperscript"
+      src="cartao-frente.js"
+      canvas="canvas-frente"
+      async
+    ></script>
 
-		function download_svg() {
-			var file_name = "cartao_frente-" + return_date() + ".svg";
-			var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
-			var link = document.createElement("a");
-			link.download = file_name;
-			link.href = url;
-			link.click();
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="c">
+      <input
+        type="date"
+        id="date"
+        name="date"
+        min="1900-01-01"
+        max="2100-12-31"
+      />
+      <button class="emoji" onclick="retrieve_data($('#date').val());">
+        🔭
+      </button>
+      <button class="emoji" onclick="recalculate_deltas = true;">🎲</button>
+      <br /><br />
 
-		}
+      <div class="canvas-container" id="canvas-container">
+        <canvas
+          id="canvas-frente"
+          class="default-canvas"
+          style="width: 284px; height: 195px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"
+        ></canvas>
+      </div>
 
-		function download_png() {
-			var file_name = "cartao_frente-" + return_date() + ".png";
-			var canvas = document.getElementById("canvas-frente"), ctx = canvas.getContext("2d");
-			canvas.toBlob(function(blob) {
-				saveAs(blob, file_name);
-			});
-		}
+      <br /><br />
+      <button onclick="download_svg()">Download SVG</button>
+    </div>
 
- 	</script>
+    <div class="other-pages">
+      <a href="index.html">logotipo</a>
+      <a class="not-a-link">cartão-frente</a>
+      <a href="cartao-verso.html">cartão-verso</a>
+      <a href="recorte.html">recorte</a>
+    </div>
 
-	<script type="text/javascript" src="paper-full.js"></script>
-	<script type="text/paperscript" src="cartao-frente.js" canvas="canvas-frente" async></script>
-
-	<link rel="stylesheet" href="style.css">
-
-</head>
-<body>
-
-	<div id="c">
-		<input type="date" id="date" name="date" min="1900-01-01" max="2100-12-31">
-		<button class="emoji" onclick="retrieve_data($('#date').val());">🔭</button>
-		<button class="emoji" onclick="recalculate_deltas = true;">🎲</button>
-		<br><br>
-	
-		<div class="canvas-container" id="canvas-container">
-			<canvas id="canvas-frente" class="default-canvas" style="width: 284px; height: 195px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);"></canvas>
-		</div>
-		
-		<br><br>
-		<button onclick="download_svg()">Download SVG</button>
-	</div>
-
-	<div class="other-pages">
-		<a href="index.html">logotipo</a>
-		<a class="not-a-link">cartão-frente</a>
-		<a href="cartao-verso.html">cartão-verso</a>
-		<a href="recorte.html">recorte</a>
-	</div>
-	
-	<script>
-		$(function(){
-			document.getElementById('date').valueAsDate = new Date();
-			retrieve_data($('#date').val());
-		})
-	</script>
-
-</body>
+    <script>
+      $(function() {
+        document.getElementById("date").valueAsDate = new Date();
+        retrieve_data($("#date").val());
+      });
+    </script>
+  </body>
 </html>
